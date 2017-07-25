@@ -21,7 +21,7 @@ Deployment on Amazon Web Services
     1. Create an [S3](https://s3.console.aws.amazon.com/s3/home) bucket using a DNS name you own. (Ours is `overview-plugin-metadata.overviewdocs.com`.)
         * Use the default permissions, no more.
         * You may need to set CORS configuration on your bucket, by clicking `Permissions` and then `CORS configuration`. Search online to make sure the server will respond with `Access-Control-Allow-Origin: *`.
-    1. Create a [CloudFront](https://console.aws.amazon.com/cloudfront/home) distribution using the S3 bucket. Make it HTTPS-only, and create a new certificate for it using Amazon ACM. (The CloudFront wizard prompts for its SSL certificate.)
+    1. Create a [CloudFront](https://console.aws.amazon.com/cloudfront/home) distribution using the S3 bucket. Make it HTTPS-only, and create a new certificate for it using Amazon ACM. (The CloudFront wizard prompts for its SSL certificate.) (You may need to wait an hour for the distribution to deploy.)
     1. Create a [Route 53](https://console.aws.amazon.com/route53/home) record set for your DNS name, pointing it to your CloudFront distribution.
 1. Every time you edit code:
     1. `git commit -a && git push`
