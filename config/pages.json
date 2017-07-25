@@ -1,0 +1,13 @@
+[
+  {
+    "path": "metadata",
+    "model": "metadata",
+    "blob": "metadata",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  {
+    "path": "show"
+  }
+]

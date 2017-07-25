@@ -1,0 +1,10 @@
+[
+  {
+    "logic": "scss",
+    "glob": "stylesheets/index.scss"
+  },
+  {
+    "logic": "javascript",
+    "glob": "javascripts/app.js"
+  }
+]

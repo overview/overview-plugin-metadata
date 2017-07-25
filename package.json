@@ -1,0 +1,34 @@
+{
+  "name": "overview-plugin-metadata",
+  "version": "1.0.0",
+  "description": "Show and edit document metadata in an Overview plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/overview/overview-plugin-metadata.git"
+  },
+  "keywords": [
+    "Overview",
+    "plugin",
+    "document",
+    "metadata"
+  ],
+  "author": "Adam Hooper <adam@adamhooper.com>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/overview/overview-plugin-metadata/issues"
+  },
+  "homepage": "https://github.com/overview/overview-plugin-metadata#readme",
+  "dependencies": {
+    "escape-html": "^1.0.3",
+    "hpd-asset-pipeline": "0.0.8",
+    "hpd-page-generator": "0.0.6",
+    "in-memory-website": "0.0.6"
+  },
+  "devDependencies": {
+    "chokidar": "^1.7.0"
+  }
+}
