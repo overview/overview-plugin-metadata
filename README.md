@@ -27,6 +27,9 @@ Deployment on Amazon Web Services
     1. `git commit -a && git push`
     1. Ensure your AWS credentials are in your environment.
     1. Run `DEBUG='*' S3_BUCKET='s3://MY-BUCKET-NAME' ./generator/upload.js`
+1. To test:
+    1. `curl -v https://MY-BUCKET-NAME/metadata`. You should get a `200 OK` response.
+    1. Add the plugin in Overview -- either from the `Add View` drop-down, or using `Add View` and then `Custom…` and choosing `https://MY-BUCKET-NAME` as a URL.
 
 License
 -------
