@@ -110,7 +110,7 @@ module.exports = class MetadataView {
 
     // We'll only update the parts of the metadata JSON that the user sees. Other
     // JSON values that aren't part of the schema won't be changed.
-    Object.assign(this.metadata, newValues)
-    this.api.saveDocumentMetadata(this.documentId, this.metadata)
+    const newMetadata = Object.assign({}, this.metadata, newValues)
+    this.api.saveDocumentMetadata(this.documentId, newMetadata)
   }
 }
