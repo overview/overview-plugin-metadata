@@ -49,6 +49,7 @@ module.exports = {
   onDocumentChanged: function(f) { _onDocumentChanged.push(f) },
   requestDocumentSet: function() { sendMessage('notifyDocumentSet') },
   requestDocument: function() { sendMessage('notifyDocument') },
+  openMetadataSchemaEditor: function() { sendMessage('openMetadataSchemaEditor') },
   saveDocumentMetadata: function(documentId, metadata) {
     sendMessage('patchDocument', { id: documentId, metadata: metadata })
   }
