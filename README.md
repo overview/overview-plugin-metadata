@@ -31,6 +31,12 @@ Deployment on Amazon Web Services
     1. `curl -v https://MY-BUCKET-NAME/metadata`. You should get a `200 OK` response.
     1. Add the plugin in Overview -- either from the `Add View` drop-down, or using `Add View` and then `Custom…` and choosing `https://MY-BUCKET-NAME` as a URL.
 
+Deployment with Docker
+----------------------
+
+`docker run --publish 3005:80 --rm overview/overview-plugin-metadata` will
+serve the plugin on `http://localhost:3005`.
+
 License
 -------
 
