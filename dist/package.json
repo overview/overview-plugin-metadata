@@ -25,6 +25,7 @@
   "homepage": "https://github.com/overview/overview-plugin-metadata#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "in-memory-website": "0.0.7"
+    "in-memory-website": "0.0.7",
+    "morgan": "^1.9.0"
   }
 }
