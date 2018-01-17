@@ -1,12 +1,25 @@
-FROM node:9.0.0-alpine
+FROM alpine:3.7 as common
 
-# npm install should be cached, so website changes don't necessarily
-# force another npm install
-COPY dist/package.json dist/package-lock.json /site/
-RUN cd /site && npm install
+RUN apk add --update --no-cache nodejs
 
-# After a website change, this code will be run
-COPY dist/server.js dist/in-memory-website.data /site/
+WORKDIR /app
+
+
+FROM common as build
+
+RUN apk add --update --no-cache nodejs-npm
+
+COPY dist/package.json dist/package-lock.json /app/
+
+RUN npm install --production
+
+COPY dist/server.js dist/in-memory-website.data /app/
+
+
+FROM common as production
 
 EXPOSE 80
-CMD /usr/local/bin/node /site/server.js
+
+COPY --from=build /app/ /app/
+
+CMD [ "/usr/bin/node", "/app/server.js" ]
