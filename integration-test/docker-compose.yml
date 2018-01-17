@@ -30,13 +30,13 @@ services:
     depends_on: [ 'overview-database' ]
 
   # === Your project (e.g., your plugin): you probably _do_ want to edit this ===
-  my-project:
+  plugin-metadata:
     build: ..
 
   # === The integration-test runner ===
   integration-test:
     image: overview/overview-integration-tester:${OVERVIEW_INTEGRATION_TESTER_VERSION}
-    depends_on: [ 'overview-web', 'my-project' ]
+    depends_on: [ 'overview-web', 'plugin-metadata' ]
     environment:
       OVERVIEW_URL: http://overview-web
       WAIT_FOR_URLS: ${WAIT_FOR_URLS}
