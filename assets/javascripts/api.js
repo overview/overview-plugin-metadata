@@ -6,18 +6,7 @@ function runCallbacks(callbacks, value) {
   callbacks.forEach(function(callback) { callback(value) })
 }
 
-function parseQueryString() {
-  const ret = {}
-  let m;
-
-  if (m = /(^|\?|&)server=([-._a-zA-Z0-9%]*)(&|$)/.exec(window.location.search)) {
-    ret.server = decodeURIComponent(m[2])
-  }
-
-  return ret
-}
-
-const origin = parseQueryString().server
+const origin = (new URL(document.location)).searchParams.get('origin')
 const _onDocumentSetChanged = []
 const _onDocumentChanged = []
 
