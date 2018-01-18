@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+DIR="$(dirname "$0")"
+
+EXTRA_DOCKER_RUN_ARGS="--publish 127.0.0.1:3334:80 --name plugin-metadata" \
+exec "$DIR"/in-docker sh -m -c 'set -ex; SERVER_PID=""; kill_if_running() { [ -n "$SERVER_PID" ] && kill -9 "$SERVER_PID" && wait "$SERVER_PID" || true; }; start() { if generator/build.js > /website-data.in-memory-website; then in-memory-website-http-server & SERVER_PID="$!"; else SERVER_PID=""; fi; }; start; inotifywait -e close_write -m -r assets config generator views | while read -r directory events filename; do kill_if_running && start; done'

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -e
+
+: "${S3_BUCKET:?Please set S3_BUCKET to the destination bucket (for instance, 's3://overview-plugin-metadata.overviewdocs.com')}"
+: "${AWS_ACCESS_KEY_ID:?Please set AWS_ACCESS_KEY_ID}"
+: "${AWS_SECRET_ACCESS_KEY:?Please set AWS_SECRET_ACCESS_KEY}"
+
+DIR="$(dirname "$0")"
+
+BUILD_IMAGE=$(docker build -q --target=build "$DIR")
+exec docker run --rm -it \
+  -e S3_BUCKET="$S3_BUCKET" \
+  -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+  -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
+  -e DEBUG='*' \
+  "$BUILD_IMAGE" \
+  node -e 'const InMemoryWebsite = require("in-memory-website"); const website = InMemoryWebsite.StaticWebsite.fromBuffer(fs.readFileSync("website.data")); InMemoryWebsite.S3Uploader.uploadWebsiteToBucket(website, process.env.S3_BUCKET, err => { if (err) throw err })'

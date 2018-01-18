@@ -3,39 +3,28 @@ overview-plugin-metadata
 
 Edit metadata in a view.
 
-Development
------------
+This [Overview](https://github.com/overview/overview-server) plugin uses
+nothing but flat files. Any web server can serve it.
 
-1. Start the development environment
-    1. Install [NodeJS](https://nodejs.org/en/) v8+
-    1. Start a development server: `generator/dev.js`. That'll start a server at [http://localhost:3000](http://localhost:3000).
-    1. Run [Overview](https://github.com/overview/overview-server) in development mode
-    1. Create a document set in Overview
-    1. When viewing the document set, click `Add View` -> `Custom…` to create a new View. Enter `Metadata` as the name and `http://localhost:3000` as the URL.
-1. Edit files in `assets/` and `views/`. Refresh in Overview to see the changes. (Alternatively, install [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) to make Overview refresh automatically when you edit files.)
+Running on a dev machine
+------------------------
 
-Deployment on Amazon Web Services
----------------------------------
+1. Run [overview-server](https://github.com/overview/overview-server)'s `./dev`
+1.`Run `./dev` in this directory, in a separate shell.
+1. In Overview (http://localhost:9000), create a plugin with url `https://localhost:3334` and Overview URL `http://overview-dev`.
 
-1. Initial deployment:
-    1. Create an [S3](https://s3.console.aws.amazon.com/s3/home) bucket using a DNS name you own. (Ours is `overview-plugin-metadata.overviewdocs.com`.)
-        * Use the default permissions, no more.
-        * You may need to set CORS configuration on your bucket, by clicking `Permissions` and then `CORS configuration`. Search online to make sure the server will respond with `Access-Control-Allow-Origin: *`.
-    1. Create a [CloudFront](https://console.aws.amazon.com/cloudfront/home) distribution using the S3 bucket. Make it HTTPS-only, and create a new certificate for it using Amazon ACM. (The CloudFront wizard prompts for its SSL certificate.) (You may need to wait an hour for the distribution to deploy.)
-    1. Create a [Route 53](https://console.aws.amazon.com/route53/home) record set for your DNS name, pointing it to your CloudFront distribution.
-1. Every time you edit code:
-    1. `git commit -a && git push`
-    1. Ensure your AWS credentials are in your environment.
-    1. Run `DEBUG='*' S3_BUCKET='s3://MY-BUCKET-NAME' ./generator/upload.js`
-1. To test:
-    1. `curl -v https://MY-BUCKET-NAME/metadata`. You should get a `200 OK` response.
-    1. Add the plugin in Overview -- either from the `Add View` drop-down, or using `Add View` and then `Custom…` and choosing `https://MY-BUCKET-NAME` as a URL.
+Then there are the tests:
 
-Deployment with Docker
-----------------------
+1. `./integration-tests/run` runs integration tests (assuming you're running the dev-mode processes)
+1. `./integration-tests/run-browser spec/multi_search_spec.rb` runs tests in a web browser viewed with `vncviewer` (assuming you're running the dev-mode processes)
+1. `./integration-tests/run-in-docker-compose` runs a clean test environment (useful for continuous integration)
 
-`docker run --publish 3005:80 --rm overview/overview-plugin-metadata` will
-serve the plugin on `http://localhost:3005`.
+Releasing and deploying
+-----------------------
+
+1. Run `./integration-tests/run-in-docker-compose`
+1. `./release 1.0.1` (or whatever version) to publish a Docker image
+1. `AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... S3_BUCKET=... ./deploy` to deploy to an S3 bucket. (The production version is `s3://overview-plugin-metadata.overviewdocs.com`.)
 
 License
 -------
