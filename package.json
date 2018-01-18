@@ -1,6 +1,6 @@
 {
   "name": "overview-plugin-metadata",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Show and edit document metadata in an Overview plugin",
   "main": "index.js",
   "scripts": {
